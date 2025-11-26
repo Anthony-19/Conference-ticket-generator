@@ -52,7 +52,7 @@ export default function TicketGenerated() {
               width={50}
               height={50}
               className={styles.ticketCardImage}
-            />
+            />  
             <div className={styles.ticketCardDetails}>
               <h3 className={styles.ticketCardName}>{ticketData?.fullName}</h3>
               <section className={styles.ticketCardInfo}>
