@@ -1,0 +1,164 @@
+:root {
+  --text-gradient: linear-gradient(
+    to right,
+    hsl(7, 86%, 67%),
+    hsl(0, 0%, 100%)
+  );
+}
+.description {
+  width: 100%;
+  max-width: 75%;
+  margin: 0 auto;
+  line-height: 1.4rem;
+}
+.name,
+.email {
+  background: var(--text-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ticketContainer{
+    position: relative;
+    background-image: url(/images/pattern-ticket.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 100%;
+    max-width: 420px;
+     height: 200px;
+     /* background-color: green; */
+  
+    /* height: auto; */
+
+    /* min-height: 200px; */
+    margin: 4rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem; 
+}
+
+.ticketCardHeader{
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+}
+.ticketTitle{
+    padding-bottom: 0.7rem;
+}
+.ticketCardName{
+    margin-bottom: 0.5rem;
+}
+.ticketCardUser{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 4rem;
+}
+.ticketCardInfo{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.ticketCardImage{
+    border-radius: 0.5rem;
+}
+.ticketGeneratedNumLabel{
+    /* display: block; */
+    transform: rotate(90deg);
+    font-size: 1.3rem;
+}
+.ticketDescription{
+    font-weight: 200;
+}
+.ticketCardInfoLabel{
+    font-weight: 200;
+}
+
+@media screen and (max-width: 420px) {
+    .ticketContainer{
+    /* position: relative; */
+    background-image: url(/images/pattern-ticket.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+    background-position: center;
+        /* background-color: green; */
+    width: 100%;
+    max-width: 420px;
+    /* max-width: 68%; */
+    height: auto;
+
+    /* min-height: 200px; */
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem; 
+}
+.ticketCardUser{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+}
+@media screen and (max-width: 415px) {
+    .ticketContainer{
+    /* position: relative; */
+    background-image: url(/images/pattern-ticket.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+    background-position: center;
+       
+    width: 100%;
+    max-width: 360px;
+  
+    height: auto;
+
+ 
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem; 
+}
+.ticketCardUser{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+}
+
+@media screen and (max-width: 345px) {
+    .ticketContainer{
+    /* position: relative; */
+    background-image: url(/images/pattern-ticket.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+    background-position: center;
+       
+    width: 100%;
+    max-width: 360px;
+  
+    height: 160px;
+
+ 
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+   
+}
+.ticketCardUser{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+}
