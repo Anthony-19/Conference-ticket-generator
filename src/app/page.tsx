@@ -4,6 +4,10 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import {useRouter} from "next/navigation";
+import { handleImageChange } from "../../utils/handleImage";
+import { handleChange } from "../../utils/handleChange";
+import { validateUser } from "../../utils/validateUserInput";
+import { removeImage } from "../../utils/removeImage";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -19,63 +23,63 @@ export default function Home() {
     gitHubUser: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target;
-  setFormData((prevData) => (
-    {
-      ...prevData,
-      [name]: value,
-    }
-  ))
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const { name, value } = e.target;
+//   setFormData((prevData) => (
+//     {
+//       ...prevData,
+//       [name]: value,
+//     }
+//   ))
 
-  setFormErrors((prevErrors) => (
-    {
-      ...prevErrors,
-      [name]: "",
-    }
-  ))
-}
+//   setFormErrors((prevErrors) => (
+//     {
+//       ...prevErrors,
+//       [name]: "",
+//     }
+//   ))
+// }
 
-const validateUserInput = (): boolean => {
-  let isValid = true;
-  const newErrors = {
-    upload: "",
-    fullName: "",
-    email: "",
-    gitHubUser: "",
-  }
-  if(!formData.fullName.trim()){
-    newErrors.fullName = "Full Name is required";
-    isValid = false;
-  }
-  if(!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)){
-    newErrors.email = "Valid Email is required";
-    isValid = false;
-  }
-  if(!formData.gitHubUser.trim()){
-    newErrors.gitHubUser = "GitHub Username is required";
-    isValid = false;
-  }
+// const validateUserInput = (): boolean => {
+//   let isValid = true;
+//   const newErrors = {
+//     upload: "",
+//     fullName: "",
+//     email: "",
+//     gitHubUser: "",
+//   }
+//   if(!formData.fullName.trim()){
+//     newErrors.fullName = "Full Name is required";
+//     isValid = false;
+//   }
+//   if(!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)){
+//     newErrors.email = "Valid Email is required";
+//     isValid = false;
+//   }
+//   if(!formData.gitHubUser.trim()){
+//     newErrors.gitHubUser = "GitHub Username is required";
+//     isValid = false;
+//   }
 
-  // if(!isValid) {
-  //   setFormErrors(newErrors);
-  // }
-  // else{
-  //   setFormErrors({
-  //     fullName: "",
-  //     email: "",
-  //     gitHubUser: "",
-  //   });
-  // },
-  setFormErrors(newErrors);
-  return isValid;
-}
+//   // if(!isValid) {
+//   //   setFormErrors(newErrors);
+//   // }
+//   // else{
+//   //   setFormErrors({
+//   //     fullName: "",
+//   //     email: "",
+//   //     gitHubUser: "",
+//   //   });
+//   // },
+//   setFormErrors(newErrors);
+//   return isValid;
+// }
 
 const router = useRouter();
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if(!validateUserInput()) return;
+  if(!validateUser(formData, setFormErrors)) return;
 
   const generateNum = Math.floor(Math.random() * 100000);
   const ticketID = `#${generateNum.toString().padStart(5, "0")}`;
@@ -95,51 +99,51 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   const [image, setImage] = useState<string | null>(null);
   // const [error, setError] = useState<string | null>(null);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if(file.size > 500 * 1024) {
-      // setError("File size should be less than 500KB");
-      setFormErrors((prevErrors) => (
-        {
-          ...prevErrors,
-          upload: "File size should be less than 500KB",
-        }
-      ))
-      return;
-    }
+//   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = e.target.files?.[0];
+//     if (!file) return;
+//     if(file.size > 500 * 1024) {
+//       // setError("File size should be less than 500KB");
+//       setFormErrors((prevErrors) => (
+//         {
+//           ...prevErrors,
+//           upload: "File size should be less than 500KB",
+//         }
+//       ))
+//       return;
+//     }
 
-    setFormErrors((prevErrors) => (
-      {
-        ...prevErrors,
-        upload: "",
-      }
-    ))
-    // setError(null);
-     const reader = new FileReader();
-  reader.onloadend = () => {
-    setImage(reader.result as string); // Base64 string
-  };
-  reader.readAsDataURL(file); // Converts file to Base64
-};
+//     setFormErrors((prevErrors) => (
+//       {
+//         ...prevErrors,
+//         upload: "",
+//       }
+//     ))
+//     // setError(null);
+//      const reader = new FileReader();
+//   reader.onloadend = () => {
+//     setImage(reader.result as string); // Base64 string
+//   };
+//   reader.readAsDataURL(file); // Converts file to Base64
+// };
     // const blobUrl = URL.createObjectURL(file);
     // setImage(blobUrl);
   // };
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const removeImage = () => {
-    if (image) URL.revokeObjectURL(image);
-    setImage(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-    setFormErrors((prevErrors) => (
-      {
-        ...prevErrors,
-        upload: "",
-      }
-    ))
-    // setError("");
-  };
+  // const removeImage = () => {
+  //   if (image) URL.revokeObjectURL(image);
+  //   setImage(null);
+  //   if (fileInputRef.current) fileInputRef.current.value = "";
+  //   setFormErrors((prevErrors) => (
+  //     {
+  //       ...prevErrors,
+  //       upload: "",
+  //     }
+  //   ))
+  //   // setError("");
+  // };
 
 
 
@@ -159,7 +163,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                 ref={fileInputRef}
                 name="upload"
                 // value={formData.upload}
-                onChange={handleImageChange}
+                onChange={(e) => handleImageChange(setFormData, setFormErrors, setImage, e)}
                 accept="image/*"
                 placeholder="Drag and drop or click to upload"
                 id="uploadImage"
@@ -200,7 +204,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        removeImage();
+                        removeImage(image,setImage, fileInputRef, setFormErrors);
                       }}
                     >
                       Remove Image
@@ -237,7 +241,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               type="text"
               name="fullName"
               value={formData.fullName}
-              onChange={handleChange}
+              onChange={(e) => handleChange(setFormData, setFormErrors, e)}
               // placeholder="Drag and drop or click to upload"
             />
              {formErrors.fullName && 
@@ -260,7 +264,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
+               onChange={(e) => handleChange(setFormData, setFormErrors, e)}
               placeholder="example@email.com"
             />
             {formErrors.email && 
@@ -282,7 +286,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
               type="text"
               name="gitHubUser"
               value={formData.gitHubUser}
-              onChange={handleChange}
+               onChange={(e) => handleChange(setFormData, setFormErrors, e)}
               placeholder="@yourusername"
             />
 
@@ -301,7 +305,6 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
           </div>
 
           <button className={styles.generateBtn}>Generate My Ticket</button>
-          {/* <Link href="/ticketGenerated">Go to Ticket</Link> */}
         </form>
       </main>
     </>
