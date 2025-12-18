@@ -2,13 +2,15 @@
 import {useState, useEffect} from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
-export default function TicketGenerated() {
-  const [ticketData, setTicketData] = useState<any>(null);
+import type { JSX } from "react";
+import type { FinalFormData } from "../page";
+export default function TicketGenerated():JSX.Element {
+  const [ticketData, setTicketData] = useState<FinalFormData | null>(null);
 
   useEffect(() => {
-    const storedData = localStorage.getItem("ticketData");
+    const storedData: string | null = localStorage.getItem("ticketData");
     if(storedData) {
-      setTicketData(JSON.parse(storedData));
+      setTicketData(JSON.parse(storedData) as FinalFormData);
     }
   }, [])
 

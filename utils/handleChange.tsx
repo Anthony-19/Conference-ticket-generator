@@ -1,17 +1,20 @@
+import type { FormDataTypes } from "@/app/page";
+import type { FormErrorDataTypes } from "@/app/page";
+import type { Dispatch, SetStateAction } from "react";
 export const handleChange = (
-    setFormData: any, 
-    setFormErrors: any, 
+     setFormData: Dispatch<SetStateAction<FormDataTypes>>, 
+    setFormErrors: Dispatch<SetStateAction<FormErrorDataTypes>>, 
     e: React.ChangeEvent<HTMLInputElement>
 ) => {
   const { name, value } = e.target;
-  setFormData((prevData: any) => (
+  setFormData((prevData: FormDataTypes) => (
     {
       ...prevData,
       [name]: value,
     }
   ))
 
-  setFormErrors((prevErrors: any) => (
+  setFormErrors((prevErrors: FormErrorDataTypes) => (
     {
       ...prevErrors,
       [name]: "",

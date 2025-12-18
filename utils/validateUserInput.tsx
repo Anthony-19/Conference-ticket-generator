@@ -1,4 +1,8 @@
-export const validateUser = (formData: any, setFormErrors: any): boolean => {
+import type { FormDataTypes } from "@/app/page";
+import type { FormErrorDataTypes } from "@/app/page";
+import type { Dispatch, SetStateAction } from "react";
+
+export const validateUser = (formData: FormDataTypes, setFormErrors:  Dispatch<SetStateAction<FormErrorDataTypes>>): boolean => {
   let isValid = true;
   const newErrors = {
     upload: "",

@@ -8,15 +8,34 @@ import { handleImageChange } from "../../utils/handleImage";
 import { handleChange } from "../../utils/handleChange";
 import { validateUser } from "../../utils/validateUserInput";
 import { removeImage } from "../../utils/removeImage";
+import type { JSX } from "react";
 
-export default function Home() {
-  const [formData, setFormData] = useState({
+export type FormDataTypes = {
+   upload:string,
+    fullName: string,
+    email: string,
+    gitHubUser: string,
+}
+export type FormErrorDataTypes = {
+   upload?:string,
+    fullName?: string,
+    email?: string,
+    gitHubUser?: string,
+}
+
+export type FinalFormData = FormDataTypes & {
+  ticketID: string,
+  image: string | null
+
+}
+export default function Home():JSX.Element {
+  const [formData, setFormData] = useState<FormDataTypes>({
     upload: "",
     fullName: "",
     email: "",
     gitHubUser: "",
   });
-  const [formErrors, setFormErrors] = useState({
+  const [formErrors, setFormErrors] = useState<FormErrorDataTypes>({
     upload: "",
     fullName: "",
     email: "",
@@ -77,14 +96,14 @@ export default function Home() {
 
 const router = useRouter();
 
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
   e.preventDefault();
   if(!validateUser(formData, setFormErrors)) return;
 
-  const generateNum = Math.floor(Math.random() * 100000);
-  const ticketID = `#${generateNum.toString().padStart(5, "0")}`;
+  const generateNum: number = Math.floor(Math.random() * 100000);
+  const ticketID: string = `#${generateNum.toString().padStart(5, "0")}`;
 
-  const formsData = {
+  const formsData: FinalFormData = {
     ...formData,
     ticketID,
     image
@@ -233,7 +252,6 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                 Upload your photo (JPG or PNG, max size: 500KB).
               </p> }
             </div>
-            <section></section>
           </div>
           <div className={styles.fullNameContainer}>
             <label htmlFor="fullName"> Full Name</label>

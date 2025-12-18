@@ -1,14 +1,17 @@
+import type { FormDataTypes } from "@/app/page";
+import type { FormErrorDataTypes } from "@/app/page";
+import type { Dispatch, SetStateAction } from "react";
 export const handleImageChange = (
-  setFormData: any, 
-  setFormErrors: any, 
-  setImage: any,
+  setFormData: Dispatch<SetStateAction<FormDataTypes>>, 
+  setFormErrors: Dispatch<SetStateAction<FormErrorDataTypes>>, 
+  setImage:Dispatch<SetStateAction<string | null>> ,
   e: React.ChangeEvent<HTMLInputElement>
 ) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if(file.size > 500 * 1024) {
       // setError("File size should be less than 500KB");
-      setFormErrors((prevErrors: any) => (
+      setFormErrors((prevErrors: FormErrorDataTypes) => (
         {
           ...prevErrors,
           upload: "File size should be less than 500KB",
@@ -17,7 +20,7 @@ export const handleImageChange = (
       return;
     }
 
-    setFormErrors((prevErrors: any) => (
+    setFormErrors((prevErrors: FormErrorDataTypes) => (
       {
         ...prevErrors,
         upload: "",
